@@ -32,7 +32,7 @@ export default function Home({recommendedProducts}: HomeProps) {
 
 //para informações que precisam ser indexadas pelos motores de busca... a tela toda aparece de uma vez!
 export const getServerSideProps: GetServerSideProps = async () => {
-  const response = await fetch('http://localhost:3333/recommended');
+  const response = await fetch('http://127.0.0.1:3333/recommended');
   const recommendedProducts = await response.json();
 
   return {
