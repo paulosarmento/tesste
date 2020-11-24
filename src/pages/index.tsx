@@ -1,22 +1,16 @@
-import { useEffect, useState } from 'react';
+import { GetServerSideProps } from 'next';
 import { Title } from '../styles/pages/Home';
 
 interface IProduct {
   id: string;
   title: string;
 }
+interface HomeProps {
+  recommendedProducts: IProduct[];
+}
+export default function Home({recommendedProducts}: HomeProps) {
 
-export default function Home() {
-
-  const [recommendedProducts, setRecommendedProducts] = useState<IProduct[]>([]);
-
-  useEffect(() => {
-    fetch('http://localhost:3333/recommended').then(response => {
-      response.json().then(data => {
-        setRecommendedProducts(data);
-      })
-    });
-  },[]);
+  
 
   return (
     <div>
@@ -35,4 +29,16 @@ export default function Home() {
       </section>
     </div>
   )
+}
+
+//para informações que precisam ser indexadas pelos motores de busca... a tela toda aparece de uma vez!
+export const getServerSideProps: GetServerSideProps = async () => {
+  const response = await fetch('http://localhost:3333/recommended');
+  const recommendedProducts = await response.json();
+
+  return {
+    props: {
+      recommendedProducts
+    }
+  }
 }
