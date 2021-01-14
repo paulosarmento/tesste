@@ -64,10 +64,6 @@ export const getStaticProps: GetStaticProps<CategoryProps> = async (
     Prismic.Predicates.at("my.product.category", category.id),
   ]);
 
-  //   const response = await fetch(
-  //     `http://127.0.0.1:3333/products?category_id=${slug}`
-  //   );
-  //   const products = await response.json();
   return {
     props: {
       category,
