@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import PrismicDom from "prismic-dom";
 import Prismic from "prismic-javascript";
 import { Document } from "prismic-javascript/types/documents";
+import { Product } from "styles/pages/Product";
 
 interface CategoryProps {
   category: Document;
@@ -21,17 +22,19 @@ export default function Category({ category, products }: CategoryProps) {
   return (
     <div>
       <h1>{PrismicDom.RichText.asText(category.data.title)}</h1>
-      <ul>
+      <Product>
         {products.map((product) => {
           return (
             <li key={product.id}>
+              <img src={product.data.thumbnail.url} width="350" alt=""></img>
+              <br />
               <Link href={`/catalog/products/${product.uid}`}>
                 <a>{PrismicDom.RichText.asText(product.data.title)}</a>
               </Link>
             </li>
           );
         })}
-      </ul>
+      </Product>
     </div>
   );
 }

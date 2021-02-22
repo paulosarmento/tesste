@@ -33,13 +33,11 @@ export default function Search({ searchResults }: SearchProps) {
         <button type="submit">Search</button>
       </form>
       <ul>
-        {searchResults.map((recommendedProduct) => {
+        {searchResults.map((product) => {
           return (
-            <li key={recommendedProduct.id}>
-              <Link href={`/catalog/products/${recommendedProduct.uid}`}>
-                <a>
-                  {PrismicDom.RichText.asText(recommendedProduct.data.title)}
-                </a>
+            <li key={product.id}>
+              <Link href={`/catalog/products/${product.uid}`}>
+                <a>{PrismicDom.RichText.asText(product.data.title)}</a>
               </Link>
             </li>
           );

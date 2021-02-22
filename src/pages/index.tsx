@@ -9,9 +9,13 @@ import { Document } from "prismic-javascript/types/documents";
 
 interface HomeProps {
   recommendedProducts: Document[];
+  recommendedCategory: Document[];
 }
 
-export default function Home({ recommendedProducts }: HomeProps) {
+export default function Home({
+  recommendedProducts,
+  recommendedCategory,
+}: HomeProps) {
   return (
     <div>
       <SEO
@@ -19,7 +23,7 @@ export default function Home({ recommendedProducts }: HomeProps) {
         image="boost.png"
         shouldExcludeTitleSuffix
       />
-      <section>
+      {/* <section>
         <Title>Products</Title>
 
         <ul>
@@ -29,6 +33,23 @@ export default function Home({ recommendedProducts }: HomeProps) {
                 <Link href={`/catalog/products/${recommendedProduct.uid}`}>
                   <a>
                     {PrismicDom.RichText.asText(recommendedProduct.data.title)}
+                  </a>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </section> */}
+      <section>
+        <Title>Categorias</Title>
+
+        <ul>
+          {recommendedCategory.map((recommendedCategory) => {
+            return (
+              <li key={recommendedCategory.id}>
+                <Link href={`/catalog/categories/${recommendedCategory.uid}`}>
+                  <a>
+                    {PrismicDom.RichText.asText(recommendedCategory.data.title)}
                   </a>
                 </Link>
               </li>
@@ -45,6 +66,9 @@ export const getServerSideProps: GetServerSideProps = async () => {
   const recommendedProducts = await client().query([
     Prismic.Predicates.at("document.type", "product"),
   ]);
+  const recommendedCategory = await client().query([
+    Prismic.Predicates.at("document.type", "category"),
+  ]);
 
   // const response = await fetch(
   //   `${process.env.NEXT_PUBLIC_API_URL}/recommended`
@@ -54,6 +78,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   return {
     props: {
       recommendedProducts: recommendedProducts.results,
+      recommendedCategory: recommendedCategory.results,
     },
   };
 };
