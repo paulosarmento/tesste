@@ -23,7 +23,7 @@ export default function Home({
         image="boost.png"
         shouldExcludeTitleSuffix
       />
-      {/* <section>
+      <section>
         <Title>Products</Title>
 
         <ul>
@@ -39,7 +39,7 @@ export default function Home({
             );
           })}
         </ul>
-      </section> */}
+      </section>
       <section>
         <Title>Categorias</Title>
 
